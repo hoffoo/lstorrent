@@ -10,20 +10,20 @@ import (
 func main() {
 
     if len(os.Args) != 2 {
-        println("Usage: lstorrent [file]")
+        fmt.Printf("Usage: lstorrent [file]")
         return
     }
 
     f, err := os.OpenFile(os.Args[1], os.O_RDONLY, 0600)
     if err != nil {
-        println("Failed opening file")
+        fmt.Printf("Failed opening file: ", err)
         return
     }
     defer f.Close()
 
     datb, err := bencode.Decode(f)
     if err != nil {
-        println(err)
+        fmt.Printf("Failed decoding:", err)
         return
     }
 
