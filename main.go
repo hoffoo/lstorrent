@@ -9,12 +9,22 @@ import (
 
 func main() {
 
-    if len(os.Args) != 2 {
-        fmt.Printf("Usage: lstorrent [file]")
+    if len(os.Args) < 2 {
+        fmt.Printf("Usage: lstorrent [files]")
         return
     }
 
-    f, err := os.OpenFile(os.Args[1], os.O_RDONLY, 0600)
+    for _, f := range os.Args[1:] {
+        lstorrent(f)
+    }
+}
+
+func lstorrent(path string) {
+    fmt.Printf("%s\n", path)
+    defer fmt.Printf("\n\n")
+    f, err := os.OpenFile(path, os.O_RDONLY, 0600)
+
+
     if err != nil {
         fmt.Printf("Failed opening file: ", err)
         return
